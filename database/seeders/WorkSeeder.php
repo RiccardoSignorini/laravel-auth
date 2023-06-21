@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Work;
+use Faker\Generator as Faker;
 
 class WorkSeeder extends Seeder
 {
@@ -13,18 +14,18 @@ class WorkSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(Faker $faker)
     {
-        $arrayWorks = config('works');
 
-        foreach($arrayWorks as $elem){
+        for($i=0; $i<10; $i++){
             $newWork = new Work();
-            $newWork->title =
-            $newWork->lenguages =
-            $newWork->description =
-            $newWork->image =
-            $newWork->creation_date =
+            $newWork->title = $faker->sentence(1);
+            $newWork->lenguages = $faker->randomElement(['Html', 'Css', 'Javascript', 'Vue', 'Php', 'Laravel']);
+            $newWork->description = $faker->text(100);
+            $newWork->image = $faker->imageUrl(640, 480);
+            $newWork->creation_date = $faker->dateTimeBetween('08-02-2023', '30-06-2023');
             $newWork->save();
         }
+
     }
 }
