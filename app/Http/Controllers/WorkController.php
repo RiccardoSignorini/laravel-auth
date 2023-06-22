@@ -15,6 +15,8 @@ class WorkController extends Controller
     public function index()
     {
         $works = Work::all();
+
+        return view('pages.works.index', compact('works'));
     }
 
     /**
@@ -24,7 +26,7 @@ class WorkController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.works.create');
     }
 
     /**
@@ -35,7 +37,15 @@ class WorkController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $form_data = $request->All();
+
+        $newWork = new Work();
+
+        $newWork->fill($form_data);
+
+        $newWork->save();
+
+        return redirect()->route('works.index');
     }
 
     /**
@@ -44,9 +54,11 @@ class WorkController extends Controller
      * @param  \App\Models\Work  $work
      * @return \Illuminate\Http\Response
      */
-    public function show(Work $work)
+    public function show($id)
     {
-        //
+        $single_work = Work::findOrFail($id);
+
+        return view('pages.works.show', compact('single_work'));
     }
 
     /**
@@ -57,7 +69,7 @@ class WorkController extends Controller
      */
     public function edit(Work $work)
     {
-        //
+        return view('pages.works.edit', compact('work'));
     }
 
     /**
@@ -69,7 +81,11 @@ class WorkController extends Controller
      */
     public function update(Request $request, Work $work)
     {
-        //
+        $change_work = $request->All();
+
+        $work->update($change_work);
+
+        return redirect()->route('works.index', ['work' => $work->id]);
     }
 
     /**
@@ -80,6 +96,8 @@ class WorkController extends Controller
      */
     public function destroy(Work $work)
     {
-        //
+        $work->delete();
+
+        return redirect()->route('works.index');
     }
 }

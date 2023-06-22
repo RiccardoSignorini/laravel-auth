@@ -1,4 +1,4 @@
-@extends('welcome')
+@extends('layout.app')
 
 @section('title')
     WORKS | Edit
@@ -8,7 +8,7 @@
     <div class="container">
         <h2 class="text-center">EDIT!</h2>
 
-        <form action="{{route('pizzas.update', $pizza)}}" method="POST">
+        <form action="{{route('works.update', $work)}}" method="POST">
 
             @csrf
             @method('PUT')
