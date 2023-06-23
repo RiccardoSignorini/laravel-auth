@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WorkController;
+use App\Models\Work;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +17,8 @@ use App\Http\Controllers\WorkController;
 */
 
 Route::get('/', function () {
-    return view('pages.works.index');
+    $works = Work::all();
+    return view('pages.works.index', compact('works'));
 });
 
 Route::middleware('auth')->group(function () {
